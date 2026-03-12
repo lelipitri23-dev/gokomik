@@ -6,8 +6,8 @@ import AnalyticsProvider from '@/components/AnalyticsProvider';
 import AdScript from '@/components/AdScript';
 import AdBanner from '@/components/AdBanner';
 
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kiryuu.online';
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://komikcast.online';
 const SITE_DESC = `Baca Manga Komik Bahasa Indonesia Update chapter terbaru setiap hari di ${process.env.NEXT_PUBLIC_SITE_NAME}!`;
 
 export const metadata = {

@@ -75,7 +75,7 @@ export default function PremiumPage() {
 
       <main className="pt-24 px-4 max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="font-display text-3xl text-white tracking-widest mb-3">KIRYUU <span className="text-accent-red">PREMIUM</span></h1>
+          <h1 className="font-display text-3xl text-white tracking-widest mb-3">KOMIKCAST <span className="text-accent-red">PREMIUM</span></h1>
           <p className="text-text-muted text-sm max-w-md mx-auto">
             Dukung kami dengan berlangganan Premium. Nikmati pengalaman membaca tanpa iklan dan fitur eksklusif profil!
           </p>

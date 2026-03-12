@@ -1,12 +1,12 @@
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kiryuu.online';
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://komikcast.online';
 
 export const metadata = {
-  title: `Terms of Service - ${process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu'}`,
-  description: `Syarat dan Ketentuan Layanan ${process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu'} — aturan penggunaan layanan yang wajib kamu pahami.`,
+  title: `Terms of Service - ${process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast'}`,
+  description: `Syarat dan Ketentuan Layanan ${process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast'} — aturan penggunaan layanan yang wajib kamu pahami.`,
 };
 
 function Section({ number, title, children }) {
@@ -123,14 +123,14 @@ export default function TermsOfService() {
             Untuk pertanyaan atau laporan terkait ketentuan layanan, silakan hubungi kami di:
           </p>
           <a
-            href="mailto:support-kiryuu@googlegroups.com"
+            href="mailto:support-komikcast@googlegroups.com"
             className="inline-flex items-center gap-2 mt-2 px-4 py-2 bg-bg-elevated border border-border rounded-xl text-accent-red text-sm font-semibold hover:border-accent-red transition-colors"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
               <polyline points="22,6 12,13 2,6" />
             </svg>
-            support-kiryuu@googlegroups.com
+            support-komikcast@googlegroups.com
           </a>
         </Section>
 

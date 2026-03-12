@@ -142,7 +142,7 @@ export default function ChangelogPage() {
             </div>
             <h1 className="font-display text-2xl text-text-primary tracking-widest">CHANGELOG</h1>
           </div>
-          <p className="text-text-muted text-xs mt-1 ml-12">Riwayat pembaruan dan perbaikan Kiryuu</p>
+          <p className="text-text-muted text-xs mt-1 ml-12">Riwayat pembaruan dan perbaikan Komikcast</p>
         </div>
 
         {/* Legend */}
@@ -199,7 +199,7 @@ export default function ChangelogPage() {
 
         {/* Footer */}
         <div className="mt-10 py-5 border-t border-border text-center">
-          <p className="text-text-muted text-[11px]">Kiryuu — terus diperbarui 🚀</p>
+          <p className="text-text-muted text-[11px]">Komikcast — terus diperbarui 🚀</p>
         </div>
       </main>
     </div>

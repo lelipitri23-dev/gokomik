@@ -7,8 +7,8 @@ import SyncBanner from '@/components/SyncBanner';
 
 export const revalidate = 300;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kiryuu.online';
-const SITE_NAME_ENV = process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://komikcast.online';
+const SITE_NAME_ENV = process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast';
 
 export const metadata = {
   title: `${process.env.NEXT_PUBLIC_SITE_NAME} - Baca Manga Komik Bahasa Indonesia`,

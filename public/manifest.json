@@ -1,6 +1,6 @@
 {
-  "name": "Kiryuu",
-  "short_name": "Kiryuu",
+  "name": "Komikcast",
+  "short_name": "Komikcast",
   "description": "Baca manga, manhwa, dan manhua gratis",
   "start_url": "/",
   "display": "standalone",

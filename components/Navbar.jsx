@@ -185,7 +185,7 @@ export default function Navbar() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-bg-primary/90 backdrop-blur-md border-b border-border">
         <div className="max-w-2xl mx-auto flex items-center justify-between px-4 h-14">
           <Link href="/" className="flex items-center gap-1">
-            <span className="font-display text-2xl text-accent-red tracking-wider">{process.env.NEXT_PUBLIC_SITE_NAME || 'KIRYUU'}</span>
+            <span className="font-display text-2xl text-accent-red tracking-wider">{process.env.NEXT_PUBLIC_SITE_NAME || 'KOMIKCAST'}</span>
           </Link>
 
           <div className="flex items-center gap-3">

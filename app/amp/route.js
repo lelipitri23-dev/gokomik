@@ -1,8 +1,8 @@
 import { getHomeData } from '@/lib/api';
 import { NextResponse } from 'next/server';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kiryuu.online';
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://komikcast.online';
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast';
 
 const AMP_BOILERPLATE = `body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}`;
 const AMP_NOSCRIPT = `body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}`;

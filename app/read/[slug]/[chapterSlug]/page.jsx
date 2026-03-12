@@ -1,8 +1,8 @@
 import ReaderClient from './ReaderClient';
 import { getChapter } from '@/lib/api';
 
-const SITE_URL  = process.env.NEXT_PUBLIC_SITE_URL  || 'https://kiryuu.id';
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu';
+const SITE_URL  = process.env.NEXT_PUBLIC_SITE_URL  || 'https://komikcast.id';
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Komikcast';
 
 async function getChapterData(slug, chapterSlug) {
   try {

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   const manga = res?.data?.info;
   if (!manga) return { title: 'Komik Tidak Ditemukan' };
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kiryuu.id';
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://komikcast.id';
   const coverImage = manga.coverImage || manga.thumb || '';
   const type = manga.type || '';
   const status = manga.status || '';
