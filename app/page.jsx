@@ -23,7 +23,7 @@ export default async function HomePage() {
   const res = await getHomeData();
   const data = res?.data || {};
 
-  const { recents = [], trending = [], manhwas = [], manhuas = [], manhuas = [], mangas = [] } = data;
+  const { recents = [], trending = [], manhwas = [], manhuas = [], mangas = [] } = data;
   const secondaryList = manhuas;
   const secondaryType = 'manhua';
   const secondaryTitle = 'MANHUA';
