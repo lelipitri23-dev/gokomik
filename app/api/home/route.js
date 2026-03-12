@@ -55,13 +55,13 @@ export async function GET(request) {
         const { searchParams } = new URL(request.url);
         const { page, limit, skip } = getPaginationParams(searchParams);
 
-        const [totalManga, recentsRaw, trendingRaw, manhwasRaw, mangasRaw, doujinshisRaw] = await Promise.all([
+        const [totalManga, recentsRaw, trendingRaw, manhwasRaw, mangasRaw, manhuasRaw] = await Promise.all([
             Manga.countDocuments(),
             findMangaList({}, { lastUpdated: -1 }, skip, limit),
             findMangaList({}, { views: -1 }, 0, 10),
             findMangaList({ type: { $regex: 'manhwa', $options: 'i' } }, { lastUpdated: -1 }, 0, 10),
             findMangaList({ type: { $regex: 'manga', $options: 'i' } }, { lastUpdated: -1 }, 0, 10),
-            findMangaList({ type: { $regex: 'doujinshi', $options: 'i' } }, { lastUpdated: -1 }, 0, 10),
+            findMangaList({ type: { $regex: 'manhua', $options: 'i' } }, { lastUpdated: -1 }, 0, 10),
         ]);
 
         return NextResponse.json({
@@ -71,7 +71,7 @@ export async function GET(request) {
                 trending: formatMangaList(trendingRaw),
                 manhwas: formatMangaList(manhwasRaw),
                 mangas: formatMangaList(mangasRaw),
-                doujinshis: formatMangaList(doujinshisRaw),
+                manhuas: formatMangaList(manhuasRaw),
             },
             pagination: {
                 currentPage: page,

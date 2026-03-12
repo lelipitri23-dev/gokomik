@@ -27,7 +27,7 @@ function typeBadgeClass(type) {
   const t = type?.toLowerCase();
   if (t === 'manhwa') return 'bg-purple-900/50 border-purple-700 text-purple-300';
   if (t === 'manhua') return 'bg-orange-900/50 border-orange-700 text-orange-300';
-  if (t === 'doujinshi') return 'bg-pink-900/50 border-pink-700 text-pink-300';
+  if (t === 'manhua') return 'bg-pink-900/50 border-pink-700 text-pink-300';
   return 'bg-blue-900/50 border-blue-700 text-blue-300';
 }
 

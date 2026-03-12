@@ -23,10 +23,10 @@ export default async function HomePage() {
   const res = await getHomeData();
   const data = res?.data || {};
 
-  const { recents = [], trending = [], manhwas = [], manhuas = [], doujinshis = [], mangas = [] } = data;
-  const secondaryList = manhuas.length > 0 ? manhuas : doujinshis;
-  const secondaryType = manhuas.length > 0 ? 'manhua' : 'doujinshi';
-  const secondaryTitle = manhuas.length > 0 ? 'MANHUA' : 'DOUJINSHI';
+  const { recents = [], trending = [], manhwas = [], manhuas = [], manhuas = [], mangas = [] } = data;
+  const secondaryList = manhuas;
+  const secondaryType = 'manhua';
+  const secondaryTitle = 'MANHUA';
 
   return (
     <div className="min-h-screen bg-bg-primary">
@@ -44,7 +44,7 @@ export default async function HomePage() {
         <div className="flex gap-2 px-4 py-3 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {[
             { label: 'Terbaru', href: '/manga?order=latest' },
-            { label: '19+', href: '//v2.doujindesu.web.id' },
+            { label: '19+', href: '#' },
             { label: 'Populer', href: '/manga?order=popular' },
             { label: 'Manga', href: '/manga?type=manga' },
             { label: 'Manhwa', href: '/manga?type=manhwa' },
@@ -73,7 +73,7 @@ export default async function HomePage() {
         {/* Iklan — di antara section konten */}
         <AdBanner slot="IN_CONTENT" className="px-4 my-3" />
 
-        {/* Secondary type: Manhua (new) or Doujinshi (legacy) */}
+        {/* Secondary type: Manhua (new) or Manhua (legacy) */}
         {secondaryList.length > 0 && (
           <MangaSection
             title={secondaryTitle}

@@ -37,14 +37,14 @@ function escHtml(str) {
 export async function GET() {
   const res = await getHomeData();
   const data = res?.data || {};
-  const { trending = [], manhwas = [], manhuas = [], mangas = [], doujinshis = [] } = data;
+  const { trending = [], manhwas = [], manhuas = [], mangas = [], manhuas = [] } = data;
 
   const allManga = [
     ...trending.slice(0, 6),
     ...manhwas.slice(0, 6),
     ...manhuas.slice(0, 4),
     ...mangas.slice(0, 6),
-    ...doujinshis.slice(0, 4),
+    ...manhuas.slice(0, 4),
   ].filter((m, i, arr) => arr.findIndex((x) => x.slug === m.slug) === i).slice(0, 30);
 
   const cards = allManga.map((manga) => {

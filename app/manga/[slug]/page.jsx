@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   const manga = res?.data?.info;
   if (!manga) return { title: 'Komik Tidak Ditemukan' };
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://doujindesu.online';
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kiryuu.id';
   const coverImage = manga.coverImage || manga.thumb || '';
   const type = manga.type || '';
   const status = manga.status || '';
@@ -143,7 +143,7 @@ export default async function MangaDetailPage({ params }) {
                 {type && (
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border ${type?.toLowerCase() === 'manhwa' ? 'bg-purple-900/50 border-purple-700 text-purple-300'
                     : type?.toLowerCase() === 'manhua' ? 'bg-orange-900/50 border-orange-700 text-orange-300'
-                      : type?.toLowerCase() === 'doujinshi' ? 'bg-pink-900/50 border-pink-700 text-pink-300'
+                      : type?.toLowerCase() === 'manhua' ? 'bg-pink-900/50 border-pink-700 text-pink-300'
                         : 'bg-blue-900/50 border-blue-700 text-blue-300'
                     }`}>
                     {type}

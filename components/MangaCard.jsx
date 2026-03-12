@@ -45,7 +45,7 @@ export default function MangaCard({ manga, size = 'md' }) {
               ? 'bg-orange-500/90 text-white'
               : type?.toLowerCase() === 'manhwa'
                 ? 'bg-purple-600/90 text-white'
-                : type?.toLowerCase() === 'doujinshi'
+                : type?.toLowerCase() === 'manhua'
                   ? 'bg-pink-600/90 text-white'
                   : 'bg-blue-600/90 text-white'
               }`}>

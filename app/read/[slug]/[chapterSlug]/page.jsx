@@ -1,8 +1,8 @@
 import ReaderClient from './ReaderClient';
 import { getChapter } from '@/lib/api';
 
-const SITE_URL  = process.env.NEXT_PUBLIC_SITE_URL  || 'https://doujindesu.online';
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'DoujinDesu';
+const SITE_URL  = process.env.NEXT_PUBLIC_SITE_URL  || 'https://kiryuu.id';
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Kiryuu';
 
 async function getChapterData(slug, chapterSlug) {
   try {
