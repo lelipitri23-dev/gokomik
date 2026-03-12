@@ -1,0 +1,244 @@
+'use client';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+const DEBOUNCE_MS = 350;
+const MAX_RESULTS = 8;
+
+export default function LiveSearch({ onClose }) {
+  const router = useRouter();
+  const inputRef = useRef(null);
+  const listRef = useRef(null);
+
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const [showEmpty, setShowEmpty] = useState(false);
+  const timerRef = useRef(null);
+  const abortRef = useRef(null);
+
+  // Autofocus
+  useEffect(() => { inputRef.current?.focus(); }, []);
+
+  // Debounced live search
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) {
+      setResults([]);
+      setShowEmpty(false);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    setShowEmpty(false);
+    clearTimeout(timerRef.current);
+
+    timerRef.current = setTimeout(async () => {
+      abortRef.current?.abort();
+      abortRef.current = new AbortController();
+      try {
+        const res = await fetch(
+          `/api/manga-list?q=${encodeURIComponent(q)}&page=1&limit=${MAX_RESULTS}`,
+          { signal: abortRef.current.signal }
+        );
+        const json = await res.json();
+        const items = Array.isArray(json?.data) ? json.data : [];
+        setResults(items.slice(0, MAX_RESULTS));
+        setShowEmpty(items.length === 0);
+        setActiveIdx(-1);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setResults([]);
+          setShowEmpty(true);
+        }
+      } finally {
+        setLoading(false);
+      }
+    }, DEBOUNCE_MS);
+
+    return () => clearTimeout(timerRef.current);
+  }, [query]);
+
+  // Keyboard navigation
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIdx((i) => Math.min(i + 1, results.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIdx((i) => Math.max(i - 1, -1));
+    } else if (e.key === 'Enter') {
+      if (activeIdx >= 0 && results[activeIdx]) {
+        router.push(`/manga/${results[activeIdx].slug}`);
+        onClose();
+      } else if (query.trim()) {
+        router.push(`/manga?q=${encodeURIComponent(query.trim())}`);
+        onClose();
+      }
+    } else if (e.key === 'Escape') {
+      onClose();
+    }
+  }, [results, activeIdx, query, router, onClose]);
+
+  // Scroll active item into view
+  useEffect(() => {
+    if (activeIdx >= 0 && listRef.current) {
+      const el = listRef.current.children[activeIdx];
+      el?.scrollIntoView({ block: 'nearest' });
+    }
+  }, [activeIdx]);
+
+  const typeColor = (type) => {
+    const t = (type || '').toLowerCase();
+    if (t === 'manhwa') return 'bg-purple-900/60 text-purple-300';
+    if (t === 'manhua') return 'bg-orange-900/60 text-orange-300';
+    return 'bg-blue-900/60 text-blue-300';
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-start justify-center pt-16 px-4"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-lg animate-slide-up"
+        onClick={(e) => e.stopPropagation()}
+        style={{ animation: 'slideDown 0.18s ease' }}
+      >
+        {/* Input box */}
+        <div className="flex items-center gap-3 bg-bg-card border border-border rounded-2xl px-4 py-3 shadow-2xl shadow-black/60">
+          {loading ? (
+            <div className="w-5 h-5 border-2 border-accent-red border-t-transparent rounded-full animate-spin flex-shrink-0" />
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 text-text-muted flex-shrink-0">
+              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          )}
+          <input
+            ref={inputRef}
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Cari manga, manhwa, manhua..."
+            className="flex-1 bg-transparent text-text-primary placeholder-text-muted outline-none text-base"
+            autoComplete="off"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => { setQuery(''); setResults([]); inputRef.current?.focus(); }}
+              className="text-text-muted hover:text-text-primary transition-colors"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {/* Results dropdown */}
+        {(results.length > 0 || showEmpty) && (
+          <div className="mt-2 bg-bg-card border border-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
+            {results.length > 0 ? (
+              <>
+                <div ref={listRef} className="max-h-[55vh] overflow-y-auto divide-y divide-border">
+                  {results.map((item, idx) => (
+                    <Link
+                      key={item.slug}
+                      href={`/manga/${item.slug}`}
+                      onClick={onClose}
+                      className={`flex items-center gap-3 px-3 py-2.5 transition-colors ${
+                        idx === activeIdx ? 'bg-accent-red/10' : 'hover:bg-bg-elevated'
+                      }`}
+                    >
+                      {/* Cover */}
+                      <div className="w-9 h-12 rounded-lg overflow-hidden bg-bg-elevated flex-shrink-0 border border-border">
+                        {item.coverImage ? (
+                          <img
+                            src={item.coverImage}
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-bg-elevated" />
+                        )}
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-semibold truncate ${idx === activeIdx ? 'text-accent-red' : 'text-text-primary'}`}>
+                          {item.title}
+                        </p>
+                        <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                          {item.type && (
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${typeColor(item.type)}`}>
+                              {item.type}
+                            </span>
+                          )}
+                          {item.last_chapter && (
+                            <span className="text-[10px] text-text-muted truncate">{item.last_chapter}</span>
+                          )}
+                          {item.status && (
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ml-auto ${
+                              item.status.toLowerCase() === 'ongoing'
+                                ? 'bg-green-900/60 text-green-300'
+                                : 'bg-gray-800 text-gray-400'
+                            }`}>
+                              {item.status}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Arrow */}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`w-4 h-4 flex-shrink-0 ${idx === activeIdx ? 'text-accent-red' : 'text-text-muted'}`}>
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Footer: lihat semua */}
+                <button
+                  onClick={() => { router.push(`/manga?q=${encodeURIComponent(query.trim())}`); onClose(); }}
+                  className="w-full flex items-center justify-center gap-2 py-3 text-xs text-text-secondary font-semibold border-t border-border hover:bg-bg-elevated hover:text-accent-red transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5">
+                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  Lihat semua hasil untuk &ldquo;{query}&rdquo;
+                </button>
+              </>
+            ) : (
+              <div className="py-10 flex flex-col items-center gap-2 text-text-muted">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-10 h-10 opacity-40">
+                  <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <p className="text-sm font-semibold">Tidak ada hasil untuk &ldquo;{query}&rdquo;</p>
+                <p className="text-xs">Coba kata kunci lain</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Hint */}
+        {!query && (
+          <p className="text-text-muted text-xs text-center mt-3">
+            Ketik untuk mencari · <kbd className="bg-bg-elevated border border-border rounded px-1.5 py-0.5 text-[10px]">↑↓</kbd> navigasi · <kbd className="bg-bg-elevated border border-border rounded px-1.5 py-0.5 text-[10px]">Esc</kbd> tutup
+          </p>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
