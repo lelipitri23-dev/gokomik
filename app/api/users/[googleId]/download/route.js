@@ -4,7 +4,6 @@ import { successResponse, errorResponse } from '@/lib/api-helpers';
 
 const MAX_DAILY_LIMIT = 5;
 
-// POST: Check download eligibility and increment counter
 export async function POST(request, { params }) {
   try {
     await connectDB();
@@ -15,7 +14,6 @@ export async function POST(request, { params }) {
     );
     if (!user) return errorResponse('User not found', 404);
 
-    // Auto-expire premium if past due
     if (!user.isAdmin && user.isPremium && user.premiumUntil) {
       if (new Date() > user.premiumUntil) {
         user.isPremium = false;

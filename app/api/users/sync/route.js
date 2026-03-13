@@ -9,7 +9,7 @@ export async function POST(request) {
         await connectDB();
         const body = await request.json();
         const { googleId, email, displayName, photoURL } = body;
-        
+
         if (!googleId) {
             return NextResponse.json({ success: false, message: 'googleId is required' }, { status: 400 });
         }
@@ -37,14 +37,12 @@ export async function POST(request) {
             { new: true, upsert: true, runValidators: false }
         ).lean();
 
-        // Cek kadaluarsa premium
         if (!isUserAdmin && user.isPremium && user.premiumUntil && new Date() > user.premiumUntil) {
             await User.updateOne({ googleId }, { $set: { isPremium: false, premiumUntil: null } });
             user.isPremium    = false;
             user.premiumUntil = null;
         }
 
-        // Reset daily downloads
         if (user.dailyDownloads?.date && user.dailyDownloads.date !== today) {
             await User.updateOne({ googleId }, { $set: { 'dailyDownloads.date': today, 'dailyDownloads.count': 0 } });
             user.dailyDownloads = { date: today, count: 0 };

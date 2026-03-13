@@ -17,7 +17,7 @@ export default function PremiumSubscribe() {
   const router = useRouter();
   const [selectedPkg, setSelectedPkg] = useState(PACKAGES[1]);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
-  
+
   const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || 'test';
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function PremiumSubscribe() {
           const order = await actions.order.capture();
           console.log('Pesanan Berhasil:', order);
           alert('Pembayaran Berhasil! Terima kasih telah berlangganan.');
-          // Reload page to reflect premium status
+
           window.location.reload();
         },
         onError: (err) => {
@@ -56,11 +56,11 @@ export default function PremiumSubscribe() {
 
   return (
     <div className="bg-bg-card border border-border rounded-2xl p-5 mb-8">
-      <Script 
-        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`} 
+      <Script
+        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`}
         onLoad={() => setIsScriptLoaded(true)}
       />
-      
+
       <div className="text-center mb-6">
         <h2 className="font-display text-xl text-white tracking-widest mb-1">UPGRADE <span className="text-accent-red">PREMIUM</span></h2>
         <p className="text-text-muted text-xs">Akses semua fitur tanpa batas. Tanpa iklan & benefit profil eksklusif.</p>
@@ -68,12 +68,12 @@ export default function PremiumSubscribe() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
         {PACKAGES.map((pkg) => (
-          <div 
+          <div
             key={pkg.id}
             onClick={() => setSelectedPkg(pkg)}
             className={`relative cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 ${
-              selectedPkg.id === pkg.id 
-              ? 'bg-accent-red/10 border-accent-red shadow-[0_0_15px_rgba(229,57,53,0.2)]' 
+              selectedPkg.id === pkg.id
+              ? 'bg-accent-red/10 border-accent-red shadow-[0_0_15px_rgba(229,57,53,0.2)]'
               : 'bg-bg-elevated border-border hover:border-text-secondary'
             }`}
           >
@@ -87,7 +87,7 @@ export default function PremiumSubscribe() {
               <span className="text-lg font-black text-white">{pkg.rp}</span>
               <span className="text-text-muted text-[10px] mb-1 font-semibold">/ {pkg.usd} USD</span>
             </div>
-            
+
             <ul className="space-y-1 mb-4">
               {pkg.benefits.map((benefit, idx) => (
                 <li key={idx} className="flex items-start gap-1.5 text-[10px] text-text-secondary">
@@ -98,8 +98,8 @@ export default function PremiumSubscribe() {
             </ul>
 
             <div className={`mt-auto w-full py-1.5 rounded-lg text-center text-[11px] font-bold transition-colors ${
-              selectedPkg.id === pkg.id 
-              ? 'bg-accent-red text-white' 
+              selectedPkg.id === pkg.id
+              ? 'bg-accent-red text-white'
               : 'bg-bg-card text-text-secondary border border-border'
             }`}>
               {selectedPkg.id === pkg.id ? 'Terpilih' : 'Pilih'}
@@ -108,12 +108,12 @@ export default function PremiumSubscribe() {
         ))}
       </div>
 
-      {/* Checkout Section */}
+      {}
       <div className="bg-bg-elevated rounded-xl p-4 text-center">
         <p className="text-text-muted text-[11px] mb-4">
           Tagihan Anda: <span className="text-white font-bold">${selectedPkg.usd} USD</span> via PayPal.
         </p>
-        
+
         <div className="min-h-[100px] flex items-center justify-center">
           {!isScriptLoaded ? (
             <div className="flex flex-col items-center gap-2">

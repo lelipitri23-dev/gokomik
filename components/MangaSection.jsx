@@ -6,7 +6,7 @@ export default function MangaSection({ title, mangas = [], href, accent = false 
 
   return (
     <section className="mb-6">
-      {/* Section header */}
+      {}
       <div className="flex items-center justify-between px-4 mb-3">
         <h2 className={`font-display text-xl tracking-widest ${accent ? 'text-accent-red' : 'text-text-primary'}`}>
           {title}
@@ -21,7 +21,7 @@ export default function MangaSection({ title, mangas = [], href, accent = false 
         )}
       </div>
 
-      {/* Horizontal scroll */}
+      {}
       <div className="px-4">
         <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {mangas.map((manga) => (

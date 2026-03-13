@@ -15,7 +15,7 @@ export async function GET(request) {
     try {
         await connectDB();
         const { searchParams } = new URL(request.url);
-        
+
         const { page, limit, skip } = getPaginationParams(searchParams, 20);
         const q = searchParams.get('q');
 
@@ -26,7 +26,7 @@ export async function GET(request) {
 
         const pipeline = [
             ...(Object.keys(matchStage).length ? [{ $match: matchStage }] : []),
-            { $sort: { _id: -1 } }, 
+            { $sort: { _id: -1 } },
             {
                 $group: {
                     _id:         '$googleId',
@@ -58,7 +58,7 @@ export async function GET(request) {
                 acc[s] = (acc[s] || 0) + 1;
                 return acc;
             }, {});
-            
+
             return {
                 googleId:    u._id,
                 displayName: u.displayName || 'Pengguna',

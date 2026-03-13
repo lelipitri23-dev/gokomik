@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse } from '@/lib/api-helpers';
 
-// GET: Get user notifications (auto-expire ones older than 24h)
 export async function GET(request, { params }) {
   try {
     await connectDB();

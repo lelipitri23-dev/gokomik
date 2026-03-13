@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse } from '@/lib/api-helpers';
 
-// DELETE: Remove specific history item by slug
 export async function DELETE(request, { params }) {
   try {
     await connectDB();

@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
 
-        {/* Pindahkan script JSON-LD ke sini (ini aman di head) */}
+        {}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -112,7 +112,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
         <AuthProvider>
-          {/* AdScript harus di dalam AuthProvider agar bisa cek status user */}
+          {}
           <AdScript />
 
           <Suspense fallback={null}>
@@ -121,7 +121,7 @@ export default function RootLayout({ children }) {
             </AnalyticsProvider>
           </Suspense>
 
-          {/* Sticky bottom ad — harus di dalam AuthProvider agar tidak tampil untuk admin/premium */}
+          {}
           <AdBanner slot="STICKY_BOTTOM" sticky />
         </AuthProvider>
       </body>

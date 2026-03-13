@@ -19,7 +19,6 @@ export default function AdScript() {
 
   const network = ADS_CONFIG.NETWORK;
 
-  // Adsense
   if (network === 'adsense' && ADS_CONFIG.ADSENSE?.CLIENT_ID) {
     return (
       <Script
@@ -32,12 +31,11 @@ export default function AdScript() {
     );
   }
 
-  // Custom network dengan script eksternal
   if (network === 'adsterra' || network === 'custom') {
     const globalScript = ADS_CONFIG.CUSTOM?.SCRIPT_GLOBAL;
-    
+
     if (globalScript?.SRC) {
-      // Untuk script eksternal
+
       return (
         <Script
           id="custom-ad-script"
@@ -48,9 +46,9 @@ export default function AdScript() {
         />
       );
     }
-    
+
     if (ADS_CONFIG.CUSTOM?.INLINE_SCRIPT) {
-      // Untuk script inline
+
       return (
         <Script
           id="custom-inline-script"

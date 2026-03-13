@@ -13,7 +13,7 @@ export default function MangaListItem({ manga }) {
       href={`/manga/${manga.slug}`}
       className="group flex items-center gap-3 p-3 rounded-xl bg-bg-card border border-border hover:border-accent-red transition-all duration-200"
     >
-      {/* Cover */}
+      {}
       <div className="relative flex-none w-14 h-20 rounded-lg overflow-hidden">
         {coverImage ? (
           <Image
@@ -29,7 +29,7 @@ export default function MangaListItem({ manga }) {
         )}
       </div>
 
-      {/* Info */}
+      {}
       <div className="flex-1 min-w-0">
         <p className="font-bold text-sm text-text-primary group-hover:text-accent-red transition-colors line-clamp-2 leading-tight mb-1">
           {manga.title}

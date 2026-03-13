@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse } from '@/lib/api-helpers';
 
-// PATCH: Update profile fields (displayName, photoURL, bio)
 export async function PATCH(request, { params }) {
   try {
     await connectDB();

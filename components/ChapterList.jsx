@@ -15,7 +15,6 @@ export default function ChapterList({ chapters = [], mangaSlug }) {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
 
-  // Filter berdasarkan query pencarian
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return chapters;
@@ -26,7 +25,6 @@ export default function ChapterList({ chapters = [], mangaSlug }) {
     );
   }, [chapters, query]);
 
-  // Reset ke halaman 1 saat query berubah
   const handleSearch = useCallback((e) => {
     setQuery(e.target.value);
     setPage(1);
@@ -38,7 +36,7 @@ export default function ChapterList({ chapters = [], mangaSlug }) {
 
   return (
     <div>
-      {/* Search box — hanya tampil jika chapter > 20 */}
+      {}
       {chapters.length > 20 && (
         <div className="mb-3 relative">
           <input
@@ -60,7 +58,7 @@ export default function ChapterList({ chapters = [], mangaSlug }) {
         </div>
       )}
 
-      {/* Jumlah hasil */}
+      {}
       {query && (
         <p className="text-[10px] text-text-muted mb-2">
           {filtered.length === 0
@@ -69,7 +67,7 @@ export default function ChapterList({ chapters = [], mangaSlug }) {
         </p>
       )}
 
-      {/* Chapter list — hanya render slice yang visible */}
+      {}
       <div className="space-y-2 max-h-80 overflow-y-auto pr-1" style={{ contentVisibility: 'auto' }}>
         {displayed.length === 0 ? (
           <p className="text-center text-text-muted text-sm py-8">
@@ -98,7 +96,7 @@ export default function ChapterList({ chapters = [], mangaSlug }) {
         )}
       </div>
 
-      {/* Load more button */}
+      {}
       {hasMore && (
         <button
           onClick={() => setPage((p) => p + 1)}

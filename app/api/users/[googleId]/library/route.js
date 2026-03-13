@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse, getPaginationParams } from '@/lib/api-helpers';
 
-// GET: Get user library (paginated)
 export async function GET(request, { params }) {
   try {
     await connectDB();
@@ -29,7 +28,6 @@ export async function GET(request, { params }) {
   }
 }
 
-// POST: Add or update manga in library
 export async function POST(request, { params }) {
   try {
     await connectDB();
@@ -55,7 +53,6 @@ export async function POST(request, { params }) {
   }
 }
 
-// DELETE: Clear all library
 export async function DELETE(request, { params }) {
   try {
     await connectDB();

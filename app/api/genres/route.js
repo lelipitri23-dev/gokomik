@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
     try {
         await connectDB();
-        
+
         const genres = await Manga.aggregate([
             { $unwind: '$genres' },
             { $match: { genres: { $ne: '' } } },
@@ -16,7 +16,7 @@ export async function GET() {
         ]);
 
         const formattedGenres = genres.map(g => ({ name: g._id, count: g.count }));
-        
+
         return NextResponse.json({
             success: true,
             data: formattedGenres

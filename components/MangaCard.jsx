@@ -4,7 +4,6 @@ import Image from 'next/image';
 export default function MangaCard({ manga, size = 'md' }) {
   if (!manga) return null;
 
-  // Field sudah dinormalisasi oleh normalizeManga() di lib/api.js
   const coverImage = manga.coverImage || '';
   const type = manga.type || '';
   const status = manga.status || '';
@@ -15,7 +14,7 @@ export default function MangaCard({ manga, size = 'md' }) {
       href={`/manga/${manga.slug}`}
       className="group block rounded-xl overflow-hidden bg-bg-card border border-border hover:border-accent-red transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-0.5 flex flex-col"
     >
-      {/* Cover Image */}
+      {}
       <div className="relative w-full aspect-[2/3] overflow-hidden flex-shrink-0">
         {coverImage ? (
           <Image
@@ -35,10 +34,10 @@ export default function MangaCard({ manga, size = 'md' }) {
           </div>
         )}
 
-        {/* Gradient overlay */}
+        {}
         <div className="absolute inset-0 bg-gradient-card pointer-events-none" />
 
-        {/* Type badge */}
+        {}
         {type && (
           <div className="absolute top-1.5 left-1.5">
             <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider leading-none ${type?.toLowerCase() === 'manga'
@@ -54,7 +53,7 @@ export default function MangaCard({ manga, size = 'md' }) {
           </div>
         )}
 
-        {/* Status badge */}
+        {}
         {status && (
           <div className="absolute top-1.5 right-1.5">
             <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider leading-none ${status?.toLowerCase() === 'publishing' || status?.toLowerCase() === 'ongoing'
@@ -66,7 +65,7 @@ export default function MangaCard({ manga, size = 'md' }) {
           </div>
         )}
 
-        {/* Chapter count */}
+        {}
         {manga.chapter_count > 0 && (
           <div className="absolute bottom-0 left-0 right-0 px-2 pb-1.5 pt-5 bg-gradient-to-t from-black/85 to-transparent">
             <div className="flex items-center justify-between">
@@ -86,7 +85,7 @@ export default function MangaCard({ manga, size = 'md' }) {
         )}
       </div>
 
-      {/* Info bar */}
+      {}
       <div className="p-2 flex-shrink-0" style={{ height: '56px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <p
           className="text-[11px] font-bold text-text-primary leading-tight"

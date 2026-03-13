@@ -23,7 +23,7 @@ export default function LoginClient() {
   const router = useRouter();
   const { loginWithGoogle, loginWithEmail, registerWithEmail, resetPassword } = useAuth();
 
-  const [mode, setMode] = useState('login'); // 'login' | 'register' | 'reset'
+  const [mode, setMode] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -71,7 +71,7 @@ export default function LoginClient() {
 
   return (
     <div className="min-h-screen bg-bg-primary flex flex-col">
-      {/* Back button */}
+      {}
       <div className="px-4 pt-12 pb-4">
         <Link href="/" className="inline-flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors text-sm">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
@@ -83,7 +83,7 @@ export default function LoginClient() {
 
       <div className="flex-1 flex items-center justify-center px-4 pb-10">
         <div className="w-full max-w-sm">
-          {/* Logo */}
+          {}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-1">
               <span className="font-display text-3xl text-accent-red tracking-widest">{process.env.NEXT_PUBLIC_SITE_NAME}</span>
@@ -95,10 +95,10 @@ export default function LoginClient() {
             </p>
           </div>
 
-          {/* Card */}
+          {}
           <div className="bg-bg-card border border-border rounded-2xl p-6 shadow-2xl">
 
-            {/* Mode tabs */}
+            {}
             {mode !== 'reset' && (
               <div className="flex bg-bg-elevated rounded-xl p-1 mb-6">
                 {['login', 'register'].map((m) => (
@@ -116,7 +116,7 @@ export default function LoginClient() {
               </div>
             )}
 
-            {/* Google Login */}
+            {}
             {mode !== 'reset' && (
               <>
                 <button
@@ -133,7 +133,7 @@ export default function LoginClient() {
                   Lanjutkan dengan Google
                 </button>
 
-                {/* Divider */}
+                {}
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex-1 h-px bg-border" />
                   <span className="text-text-muted text-xs">atau</span>
@@ -142,7 +142,7 @@ export default function LoginClient() {
               </>
             )}
 
-            {/* Form */}
+            {}
             <form onSubmit={handleSubmit} className="space-y-3">
               {mode === 'register' && (
                 <div>
@@ -203,7 +203,7 @@ export default function LoginClient() {
                 </div>
               )}
 
-              {/* Error & Info */}
+              {}
               {error && (
                 <div className="flex items-center gap-2 bg-red-900/30 border border-red-800 rounded-xl px-3 py-2.5">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-red-400 flex-shrink-0">
@@ -242,7 +242,7 @@ export default function LoginClient() {
               </button>
             </form>
 
-            {/* Forgot & Back links */}
+            {}
             <div className="mt-4 text-center space-y-2">
               {mode === 'login' && (
                 <button

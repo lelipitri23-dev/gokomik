@@ -46,7 +46,7 @@ export default function BookmarkList() {
   const fetchBookmarks = async () => {
     setLoading(true);
     try {
-      // getUserBookmarks sudah me-normalisasi data ke format yang dipakai komponen
+
       const data = await getUserBookmarks(user.uid);
       setBookmarks(data);
     } catch (err) {
@@ -103,7 +103,7 @@ export default function BookmarkList() {
       <Navbar />
       <main className="pt-14 pb-safe max-w-2xl mx-auto">
 
-        {/* Header */}
+        {}
         <div className="px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
@@ -130,7 +130,7 @@ export default function BookmarkList() {
             </div>
           </div>
 
-          {/* Mini stats */}
+          {}
           <div className="flex items-center gap-4 mt-3 text-xs">
             <span className="text-accent-red font-bold">{stats.reading} <span className="text-text-muted font-normal">dibaca</span></span>
             <span className="text-blue-400 font-bold">{stats.toRead} <span className="text-text-muted font-normal">mau dibaca</span></span>
@@ -138,7 +138,7 @@ export default function BookmarkList() {
             <span className="text-gray-400 font-bold">{stats.dropped} <span className="text-text-muted font-normal">dihentikan</span></span>
           </div>
 
-          {/* Tabs */}
+          {}
           <div className="flex gap-2 overflow-x-auto pb-1 mt-4 -mx-1 px-1 scrollbar-hide">
             {TABS.map(tab => (
               <button
@@ -159,7 +159,7 @@ export default function BookmarkList() {
           </div>
         </div>
 
-        {/* Empty state */}
+        {}
         {filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center px-4">
             <div className="w-16 h-16 bg-bg-elevated rounded-full flex items-center justify-center">
@@ -175,20 +175,18 @@ export default function BookmarkList() {
           </div>
         )}
 
-        {/* Bookmark list */}
+        {}
         {filtered.length > 0 && (
           <div className="px-4 space-y-3">
             {filtered.map((b) => {
-              // b sudah dinormalisasi oleh normalizeLibraryItem di lib/bookmarks.js
-              // Field: slug, mangaSlug, title, coverImage, type, status, readingStatus,
-              //        lastChapter (=lastChapterTitle), lastChapterSlug
+
               const statusOpt = STATUS_OPTIONS.find(o => o.key === (b.readingStatus || READING_STATUS.READING));
               return (
                 <div
                   key={b.slug}
                   className="flex gap-3 bg-bg-card border border-border rounded-2xl p-3 hover:border-accent-red/40 transition-colors"
                 >
-                  {/* Cover */}
+                  {}
                   <Link href={`/manga/${b.slug}`} className="flex-none">
                     <div className="rounded-xl overflow-hidden bg-bg-elevated" style={{ width: 64, height: 90 }}>
                       {b.coverImage ? (
@@ -203,7 +201,7 @@ export default function BookmarkList() {
                     </div>
                   </Link>
 
-                  {/* Info */}
+                  {}
                   <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
                     <div>
                       <Link href={`/manga/${b.slug}`}>
@@ -232,7 +230,7 @@ export default function BookmarkList() {
                       </div>
                     </div>
 
-                    {/* Actions */}
+                    {}
                     <div className="flex items-center justify-between mt-2">
                       <div className="min-w-0">
                         {b.lastChapter && (
@@ -241,7 +239,7 @@ export default function BookmarkList() {
                       </div>
                       <div className="flex items-center gap-1.5 flex-shrink-0 ml-2 relative">
 
-                        {/* Tombol ganti status */}
+                        {}
                         <button
                           onClick={() => setStatusMenu(statusMenu === b.slug ? null : b.slug)}
                           className="text-[11px] font-bold px-2.5 py-1.5 rounded-lg border border-border text-text-muted hover:border-accent-red/40 hover:text-text-primary transition-colors flex items-center gap-1"
@@ -252,7 +250,7 @@ export default function BookmarkList() {
                           </svg>
                         </button>
 
-                        {/* Status dropdown */}
+                        {}
                         {statusMenu === b.slug && (
                           <>
                             <div className="fixed inset-0 z-40" onClick={() => setStatusMenu(null)} />
@@ -271,7 +269,7 @@ export default function BookmarkList() {
                           </>
                         )}
 
-                        {/* Baca chapter terakhir */}
+                        {}
                         {b.lastChapterSlug && (
                           <Link
                             href={`/read/${b.slug}/${b.lastChapterSlug}`}
@@ -281,7 +279,7 @@ export default function BookmarkList() {
                           </Link>
                         )}
 
-                        {/* Hapus */}
+                        {}
                         <button
                           onClick={() => handleRemove(b.slug)}
                           disabled={removing === b.slug}

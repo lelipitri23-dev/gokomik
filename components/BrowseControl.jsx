@@ -79,7 +79,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
 
   return (
     <>
-      {/* Header */}
+      {}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
         <div>
           <h1 className="font-display text-2xl md:text-3xl text-white tracking-wide mb-1">
@@ -99,7 +99,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Toggle View */}
+          {}
           <div className="flex items-center bg-gray-900 rounded-lg p-1 border border-gray-800">
             <button
               onClick={() => setViewMode('list')}
@@ -130,7 +130,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
         </div>
       </div>
 
-      {/* Content */}
+      {}
       {mangas.length > 0 ? (
         viewMode === 'grid' ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
@@ -157,7 +157,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
         </div>
       )}
 
-      {/* Filter Modal */}
+      {}
       {isFilterOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsFilterOpen(false)} />
@@ -170,7 +170,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {/* Urutan */}
+              {}
               <div>
                 <h3 className="text-sm font-bold text-white mb-3">Urutan</h3>
                 <div className="flex flex-wrap gap-2">
@@ -185,7 +185,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
                 </div>
               </div>
 
-              {/* Tipe */}
+              {}
               <div>
                 <h3 className="text-sm font-bold text-white mb-3">Tipe</h3>
                 <div className="flex flex-wrap gap-2">
@@ -200,7 +200,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
                 </div>
               </div>
 
-              {/* Status */}
+              {}
               <div>
                 <h3 className="text-sm font-bold text-white mb-3">Status</h3>
                 <div className="flex flex-wrap gap-2">
@@ -215,7 +215,7 @@ export default function BrowseControl({ genres, totalItems, q, mangas, currentFi
                 </div>
               </div>
 
-              {/* Genre */}
+              {}
               {genres?.length > 0 && (
                 <div>
                   <h3 className="text-sm font-bold text-white mb-3">Genre</h3>

@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,10 +14,10 @@ module.exports = {
           elevated: '#1a2235',
         },
         accent: {
-          red: '#3b82f6',       // → biru utama (blue-500)
-          redDark: '#2563eb',   // → biru gelap (blue-600)
-          orange: '#60a5fa',    // → biru muda (blue-400)
-          gold: '#93c5fd',      // → biru pucat (blue-300)
+          red: '#3b82f6',
+          redDark: '#2563eb',
+          orange: '#60a5fa',
+          gold: '#93c5fd',
         },
         text: {
           primary: '#f0f4ff',

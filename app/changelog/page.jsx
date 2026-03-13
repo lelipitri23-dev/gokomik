@@ -103,7 +103,6 @@ const CHANGELOGS = [
   },
 ];
 
-// ── Icon per type ─────────────────────────────────────────
 function TypeIcon({ type }) {
   if (type === 'feature') return (
     <div className="w-5 h-5 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -128,7 +127,7 @@ export default function ChangelogPage() {
       <Navbar />
       <main className="pt-14 pb-safe max-w-2xl mx-auto px-4">
 
-        {/* Header */}
+        {}
         <div className="pt-6 pb-5">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-9 h-9 bg-bg-card border border-border rounded-xl flex items-center justify-center">
@@ -145,7 +144,7 @@ export default function ChangelogPage() {
           <p className="text-text-muted text-xs mt-1 ml-12">Riwayat pembaruan dan perbaikan Komikcast</p>
         </div>
 
-        {/* Legend */}
+        {}
         <div className="flex items-center gap-3 mb-6 flex-wrap">
           <span className="flex items-center gap-1.5 text-[10px] font-bold px-2 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400" />Fitur Baru
@@ -158,18 +157,18 @@ export default function ChangelogPage() {
           </span>
         </div>
 
-        {/* Timeline */}
+        {}
         <div className="relative">
-          {/* Vertical line */}
+          {}
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
 
           <div className="space-y-8">
             {CHANGELOGS.map((log, i) => (
               <div key={log.version} className="relative pl-7">
-                {/* Dot */}
+                {}
                 <div className={`absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-bg-primary ${log.dotColor} shadow-lg`} />
 
-                {/* Version header */}
+                {}
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
                   <span className="font-display text-lg text-text-primary tracking-wider">{log.version}</span>
                   <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${log.labelColor}`}>
@@ -180,7 +179,7 @@ export default function ChangelogPage() {
                   </span>
                 </div>
 
-                {/* Changes */}
+                {}
                 <div className="space-y-2.5">
                   {log.changes.map((change, j) => (
                     <div key={j} className="flex gap-2.5 bg-bg-card border border-border rounded-xl p-3 hover:border-accent-red/20 transition-colors">
@@ -197,7 +196,7 @@ export default function ChangelogPage() {
           </div>
         </div>
 
-        {/* Footer */}
+        {}
         <div className="mt-10 py-5 border-t border-border text-center">
           <p className="text-text-muted text-[11px]">Komikcast — terus diperbarui 🚀</p>
         </div>

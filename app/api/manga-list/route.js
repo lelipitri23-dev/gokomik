@@ -22,7 +22,7 @@ const formatMangaList = (mangas) => {
             rating: m.rating,
             views: m.views || 0,
             lastUpdated: m.lastUpdated,
-            chapter_count: m.chapter_count || 0, // Got from aggregation!
+            chapter_count: m.chapter_count || 0,
             last_chapter: latestChap ? latestChap.title : '?',
             last_chapter_slug: latestChap ? latestChap.slug : ''
         };
@@ -70,7 +70,6 @@ export async function GET(request) {
 
         const total = await Manga.countDocuments(query);
 
-        // Menggunakan aggregation lebih efisien untuk mendapat ukuran chapter tanpa menarik semua dokumen
         const mangasRaw = await Manga.aggregate([
             { $match: query },
             { $sort: sortOption },
@@ -86,8 +85,8 @@ export async function GET(request) {
                     rating: 1,
                     views: 1,
                     lastUpdated: 1,
-                    chapter_count: { $size: { $ifNull: ['$chapters', []] } }, // Menghitung total chapters
-                    chapters: { $slice: ['$chapters', 1] } // Mengambil chapter terbaru (pertama)
+                    chapter_count: { $size: { $ifNull: ['$chapters', []] } },
+                    chapters: { $slice: ['$chapters', 1] }
                 }
             }
         ]);

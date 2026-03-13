@@ -34,13 +34,13 @@ export default async function HomePage() {
 
       <main className="pt-14 pb-safe max-w-2xl mx-auto">
         <SyncBanner />
-        {/* Trending Hero Slider */}
+        {}
         <TrendingSlider trending={trending} />
 
-        {/* Iklan — di bawah slider, sebelum filter */}
+        {}
         <AdBanner slot="HEADER_BANNER" className="px-4 my-2" />
 
-        {/* Quick type filters */}
+        {}
         <div className="flex gap-2 px-4 py-3 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {[
             { label: 'Terbaru', href: '/manga?order=latest' },
@@ -61,7 +61,7 @@ export default async function HomePage() {
           ))}
         </div>
 
-        {/* Manhwa */}
+        {}
         {manhwas.length > 0 && (
           <MangaSection
             title="MANHWA"
@@ -70,10 +70,10 @@ export default async function HomePage() {
           />
         )}
 
-        {/* Iklan — di antara section konten */}
+        {}
         <AdBanner slot="IN_CONTENT" className="px-4 my-3" />
 
-        {/* Secondary type: Manhua (new) or Manhua (legacy) */}
+        {}
         {secondaryList.length > 0 && (
           <MangaSection
             title={secondaryTitle}
@@ -82,7 +82,7 @@ export default async function HomePage() {
           />
         )}
 
-        {/* Manga */}
+        {}
         {mangas.length > 0 && (
           <MangaSection
             title="MANGA"
@@ -91,7 +91,7 @@ export default async function HomePage() {
           />
         )}
 
-        {/* Footer */}
+        {}
         <footer className="px-4 pt-6 pb-2 border-t border-border mt-4">
           <div className="flex justify-center gap-4 mb-2">
             <a href="/privacy-policy" className="text-xs text-text-secondary hover:text-accent-red">

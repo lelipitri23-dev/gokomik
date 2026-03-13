@@ -28,7 +28,6 @@ export default function BookmarkButton({ manga }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Cek status bookmark saat mount
   useEffect(() => {
     if (!user || !manga?.slug) { setChecked(true); return; }
     let cancelled = false;
@@ -44,7 +43,6 @@ export default function BookmarkButton({ manga }) {
     return () => { cancelled = true; };
   }, [user, manga?.slug]);
 
-  // Tutup dropdown saat klik di luar
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -107,7 +105,7 @@ export default function BookmarkButton({ manga }) {
 
   return (
     <div className="flex items-stretch gap-0" ref={dropdownRef}>
-      {/* Tombol utama */}
+      {}
       <button
         onClick={handleToggle}
         disabled={loading}
@@ -120,7 +118,7 @@ export default function BookmarkButton({ manga }) {
         {loading ? 'Menyimpan...' : saved ? currentOption.label : 'Simpan'}
       </button>
 
-      {/* Dropdown toggle — status */}
+      {}
       <div className="relative">
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}

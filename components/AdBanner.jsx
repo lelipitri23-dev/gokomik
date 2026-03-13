@@ -24,8 +24,7 @@ export default function AdBanner({ slot, className = '', sticky = false }) {
 
   useEffect(() => {
     if (!shouldShowAds || !isAdSense || pushed.current) return;
-    
-    // Delay push adsbygoogle untuk memastikan script sudah load
+
     const timer = setTimeout(() => {
       try {
         if (window.adsbygoogle) {
@@ -39,11 +38,9 @@ export default function AdBanner({ slot, className = '', sticky = false }) {
   }, [shouldShowAds, isAdSense]);
 
   if (!shouldShowAds) return null;
-  
-  // Untuk custom network, pastikan ada HTML
+
   if (!isAdSense && !customHtml) return null;
-  
-  // Untuk adsense, pastikan ada slotId
+
   if (isAdSense && !slotId) return null;
 
   const stickyClass = sticky
@@ -66,7 +63,6 @@ export default function AdBanner({ slot, className = '', sticky = false }) {
     );
   }
 
-  // Untuk custom HTML banner (tanpa script)
   return (
     <div
       className={`ad-banner overflow-hidden text-center ${stickyClass} ${className}`}

@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse } from '@/lib/api-helpers';
 
-// PUT: Mark all notifications as read
 export async function PUT(request, { params }) {
   try {
     await connectDB();

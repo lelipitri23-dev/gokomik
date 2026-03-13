@@ -7,24 +7,20 @@ import { useAuth } from '@/context/AuthContext';
 export default function AdminDashboard() {
   const { user } = useAuth();
 
-  // State Kirim Notif Massal
   const [broadcastTitle, setBroadcastTitle] = useState('');
   const [broadcastMsg, setBroadcastMsg] = useState('');
   const [sendingBroadcast, setSendingBroadcast] = useState(false);
 
-  // State Aktivasi Premium
   const [targetUserId, setTargetUserId] = useState('');
   const [premiumDays, setPremiumDays] = useState(30);
   const [activating, setActivating] = useState(false);
 
-  // Cek Admin (Sesuai dengan UID di backend kamu)
   const ADMIN_UIDS = ['BUkIZguy10hnIG8jAooZoycG7ak1'];
   const isAdmin = user && ADMIN_UIDS.includes(user.uid);
 
   if (!user) return <div className="p-10 text-center text-white">Silakan login.</div>;
   if (!isAdmin) return <div className="p-10 text-center text-accent-red font-bold">Akses Ditolak. Hanya Admin.</div>;
 
-  // FUNGSI KIRIM BROADCAST
   const handleBroadcast = async (e) => {
     e.preventDefault();
     setSendingBroadcast(true);
@@ -50,7 +46,6 @@ export default function AdminDashboard() {
     setSendingBroadcast(false);
   };
 
-  // FUNGSI AKTIVASI PREMIUM
   const handleSetPremium = async (e) => {
     e.preventDefault();
     setActivating(true);
@@ -77,7 +72,7 @@ export default function AdminDashboard() {
       <main className="pt-20 px-4 max-w-2xl mx-auto space-y-6">
         <h1 className="text-2xl font-display text-accent-red tracking-wider">PANEL ADMIN</h1>
 
-        {/* Form Kirim Notif Massal */}
+        {}
         <section className="bg-bg-card border border-border rounded-2xl p-5">
           <h2 className="font-bold text-white mb-4 flex items-center gap-2">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
@@ -107,7 +102,7 @@ export default function AdminDashboard() {
           </form>
         </section>
 
-        {/* Form Aktivasi Premium */}
+        {}
         <section className="bg-bg-card border border-border rounded-2xl p-5">
           <h2 className="font-bold text-yellow-400 mb-4 flex items-center gap-2">
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">

@@ -8,7 +8,6 @@ import { useAuth } from '@/context/AuthContext';
 import { getUserHistory, removeFromHistory, clearHistory } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 
-// ─── Format waktu relatif ─────────────────────────────────
 function timeAgo(dateStr) {
   if (!dateStr) return '';
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -22,7 +21,6 @@ function timeAgo(dateStr) {
   return new Date(dateStr).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-// ─── Warna badge berdasarkan tipe ────────────────────────
 function typeBadgeClass(type) {
   const t = type?.toLowerCase();
   if (t === 'manhwa') return 'bg-purple-900/50 border-purple-700 text-purple-300';
@@ -31,7 +29,6 @@ function typeBadgeClass(type) {
   return 'bg-blue-900/50 border-blue-700 text-blue-300';
 }
 
-// ─── Skeleton ─────────────────────────────────────────────
 function HistorySkeleton() {
   return (
     <div className="space-y-3 px-4">
@@ -49,7 +46,6 @@ function HistorySkeleton() {
   );
 }
 
-// ─── Dialog konfirmasi hapus semua ───────────────────────
 function ConfirmDialog({ message, onConfirm, onCancel }) {
   return (
     <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center px-4">
@@ -87,13 +83,12 @@ function ConfirmDialog({ message, onConfirm, onCancel }) {
   );
 }
 
-// ─── Item Card ────────────────────────────────────────────
 function HistoryItem({ item, onRemove, removing }) {
   const coverImage = item.thumb || '';
 
   return (
     <div className="flex gap-3 bg-bg-card border border-border rounded-2xl p-3 hover:border-accent-red/30 transition-colors group">
-      {/* Cover */}
+      {}
       <Link href={`/manga/${item.slug}`} className="flex-none">
         <div className="relative rounded-xl overflow-hidden bg-bg-elevated" style={{ width: 64, height: 88 }}>
           {coverImage ? (
@@ -116,7 +111,7 @@ function HistoryItem({ item, onRemove, removing }) {
         </div>
       </Link>
 
-      {/* Info */}
+      {}
       <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
         <div>
           <Link href={`/manga/${item.slug}`}>
@@ -147,7 +142,7 @@ function HistoryItem({ item, onRemove, removing }) {
           </p>
         </div>
 
-        {/* Actions */}
+        {}
         <div className="flex items-center gap-2 mt-2">
           {item.lastChapterSlug && (
             <Link
@@ -193,19 +188,17 @@ function HistoryItem({ item, onRemove, removing }) {
   );
 }
 
-// ─── Main Component ───────────────────────────────────────
 export default function HistoryList() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [removing, setRemoving] = useState(null);   // slug yang sedang dihapus
+  const [removing, setRemoving] = useState(null);
   const [clearingAll, setClearingAll] = useState(false);
-  const [confirm, setConfirm] = useState(null);   // { type: 'all' | 'item', slug? }
+  const [confirm, setConfirm] = useState(null);
   const [search, setSearch] = useState('');
 
-  // Redirect jika belum login
   useEffect(() => {
     if (authLoading) return;
     if (!user) { router.replace('/login'); return; }
@@ -216,10 +209,9 @@ export default function HistoryList() {
     setLoading(true);
     try {
       const res = await getUserHistory(user.uid);
-      // Backend mengembalikan { success, data: [...] }
+
       const raw = Array.isArray(res.data) ? res.data : [];
 
-      // ── Deduplikasi: per slug, simpan entry dengan lastRead terbaru ──
       const seen = new Map();
       for (const item of raw) {
         const key = item.slug;
@@ -228,14 +220,13 @@ export default function HistoryList() {
         if (!existing) {
           seen.set(key, item);
         } else {
-          // Bandingkan lastRead, simpan yang lebih baru
+
           const existingTime = existing.lastRead ? new Date(existing.lastRead).getTime() : 0;
           const itemTime = item.lastRead ? new Date(item.lastRead).getTime() : 0;
           if (itemTime > existingTime) seen.set(key, item);
         }
       }
 
-      // Urutkan dari lastRead terbaru
       const deduped = [...seen.values()].sort((a, b) => {
         const ta = a.lastRead ? new Date(a.lastRead).getTime() : 0;
         const tb = b.lastRead ? new Date(b.lastRead).getTime() : 0;
@@ -251,7 +242,6 @@ export default function HistoryList() {
     }
   }, [user?.uid]);
 
-  // Hapus satu item
   const handleRemove = async (slug) => {
     setRemoving(slug);
     try {
@@ -264,7 +254,6 @@ export default function HistoryList() {
     }
   };
 
-  // Hapus semua
   const handleClearAll = async () => {
     setConfirm(null);
     setClearingAll(true);
@@ -278,7 +267,6 @@ export default function HistoryList() {
     }
   };
 
-  // Filter by search
   const filtered = search.trim()
     ? history.filter(h =>
       h.title?.toLowerCase().includes(search.toLowerCase()) ||
@@ -286,7 +274,6 @@ export default function HistoryList() {
     )
     : history;
 
-  // Render loading
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-bg-primary">
@@ -306,7 +293,7 @@ export default function HistoryList() {
     <div className="min-h-screen bg-bg-primary">
       <Navbar />
 
-      {/* Dialog konfirmasi */}
+      {}
       {confirm?.type === 'all' && (
         <ConfirmDialog
           message="Semua riwayat baca akan dihapus permanen."
@@ -317,7 +304,7 @@ export default function HistoryList() {
 
       <main className="pt-14 pb-safe max-w-2xl mx-auto">
 
-        {/* ── Header ──────────────────────────────── */}
+        {}
         <div className="px-4 pt-4 pb-3">
           <div className="flex items-start justify-between mb-3">
             <div>
@@ -351,7 +338,7 @@ export default function HistoryList() {
             )}
           </div>
 
-          {/* Search / Filter */}
+          {}
           {history.length > 3 && (
             <div className="flex items-center gap-2 bg-bg-elevated border border-border rounded-xl px-3 py-2.5">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-text-muted flex-shrink-0">
@@ -375,7 +362,7 @@ export default function HistoryList() {
           )}
         </div>
 
-        {/* ── Empty State ─────────────────────────── */}
+        {}
         {history.length === 0 && (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center px-4">
             <div className="w-16 h-16 bg-bg-elevated rounded-full flex items-center justify-center">
@@ -396,7 +383,7 @@ export default function HistoryList() {
           </div>
         )}
 
-        {/* ── Hasil pencarian kosong ──────────────── */}
+        {}
         {history.length > 0 && filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 gap-3 text-center px-4">
             <div className="w-12 h-12 bg-bg-elevated rounded-full flex items-center justify-center">
@@ -411,7 +398,7 @@ export default function HistoryList() {
           </div>
         )}
 
-        {/* ── History List ────────────────────────── */}
+        {}
         {filtered.length > 0 && (
           <div className="px-4 space-y-3">
             {filtered.map((item) => (

@@ -31,7 +31,7 @@ export default function TermsOfService() {
       <Navbar />
       <main className="pt-14 pb-safe max-w-2xl mx-auto px-4">
 
-        {/* Header */}
+        {}
         <div className="pt-8 pb-6 border-b border-border mb-8">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-9 h-9 bg-bg-elevated border border-border rounded-xl flex items-center justify-center">

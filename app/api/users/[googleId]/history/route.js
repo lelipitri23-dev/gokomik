@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse, getPaginationParams } from '@/lib/api-helpers';
 
-// GET: Get user history (paginated, deduplicated by slug keeping most recent)
 export async function GET(request, { params }) {
   try {
     await connectDB();
@@ -13,7 +12,6 @@ export async function GET(request, { params }) {
     const user = await User.findOne({ googleId }).select('history').lean();
     if (!user) return errorResponse('User not found', 404);
 
-    // Deduplicate by slug, keep the most recently read entry
     const seen = new Map();
     for (const item of user.history || []) {
       const existing = seen.get(item.slug);
@@ -42,7 +40,6 @@ export async function GET(request, { params }) {
   }
 }
 
-// POST: Add or update reading history
 export async function POST(request, { params }) {
   try {
     await connectDB();
@@ -52,7 +49,6 @@ export async function POST(request, { params }) {
 
     const now = new Date();
 
-    // Atomic update: try to update existing entry first
     const updateExisting = await User.updateOne(
       { googleId, 'history.slug': slug },
       {
@@ -83,7 +79,6 @@ export async function POST(request, { params }) {
   }
 }
 
-// DELETE: Clear all history or filter by type
 export async function DELETE(request, { params }) {
   try {
     await connectDB();

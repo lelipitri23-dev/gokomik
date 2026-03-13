@@ -16,11 +16,10 @@ const PACKAGES = [
 export default function PremiumPage() {
   const { user } = useAuth();
   const router = useRouter();
-  const [selectedPkg, setSelectedPkg] = useState(PACKAGES[1]); // default 30 days
+  const [selectedPkg, setSelectedPkg] = useState(PACKAGES[1]);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
-  
-  // GANTI INI DENGAN CLIENT ID PAYPAL ANDA DARI DASHBOARD
-  const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || 'test'; 
+
+  const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || 'test';
 
   useEffect(() => {
     if (!user) {
@@ -29,10 +28,10 @@ export default function PremiumPage() {
   }, [user, router]);
 
   useEffect(() => {
-    // Render PayPal Buttons setelah script termuat dan package terpilih
+
     if (isScriptLoaded && window.paypal) {
       const container = document.getElementById('paypal-button-container');
-      if (container) container.innerHTML = ''; // bersihkan button lama
+      if (container) container.innerHTML = '';
 
       window.paypal.Buttons({
         createOrder: (data, actions) => {
@@ -42,7 +41,7 @@ export default function PremiumPage() {
               amount: {
                 value: selectedPkg.usd
               },
-              custom_id: user?.uid // untuk dilempar ke webhook Backend
+              custom_id: user?.uid
             }]
           });
         },
@@ -50,7 +49,7 @@ export default function PremiumPage() {
           const order = await actions.order.capture();
           console.log('Pesanan Berhasil:', order);
           alert('Pembayaran Berhasil! Terima kasih telah berlangganan.');
-          // Redirect ke home / profile
+
           router.push(`/user/${user?.uid}`);
         },
         onError: (err) => {
@@ -67,9 +66,9 @@ export default function PremiumPage() {
     <div className="min-h-screen bg-bg-primary pb-20">
       <Navbar />
 
-      {/* Script PayPal SDK */}
-      <Script 
-        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`} 
+      {}
+      <Script
+        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`}
         onLoad={() => setIsScriptLoaded(true)}
       />
 
@@ -83,12 +82,12 @@ export default function PremiumPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {PACKAGES.map((pkg) => (
-            <div 
+            <div
               key={pkg.id}
               onClick={() => setSelectedPkg(pkg)}
               className={`relative cursor-pointer p-5 rounded-2xl border-2 transition-all duration-300 ${
-                selectedPkg.id === pkg.id 
-                ? 'bg-accent-red/10 border-accent-red scale-[1.02] shadow-[0_0_20px_rgba(229,57,53,0.3)]' 
+                selectedPkg.id === pkg.id
+                ? 'bg-accent-red/10 border-accent-red scale-[1.02] shadow-[0_0_20px_rgba(229,57,53,0.3)]'
                 : 'bg-bg-card border-border hover:border-text-secondary hover:bg-bg-elevated'
               }`}
             >
@@ -102,7 +101,7 @@ export default function PremiumPage() {
                 <span className="text-2xl font-black text-white">{pkg.rp}</span>
                 <span className="text-text-muted text-xs mb-1 font-semibold">/ {pkg.usd} USD</span>
               </div>
-              
+
               <ul className="space-y-2 mb-6">
                 {pkg.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-xs text-text-secondary">
@@ -113,8 +112,8 @@ export default function PremiumPage() {
               </ul>
 
               <div className={`mt-auto w-full py-2.5 rounded-xl text-center text-sm font-bold transition-colors ${
-                selectedPkg.id === pkg.id 
-                ? 'bg-accent-red text-white' 
+                selectedPkg.id === pkg.id
+                ? 'bg-accent-red text-white'
                 : 'bg-bg-elevated text-text-secondary border border-border'
               }`}>
                 {selectedPkg.id === pkg.id ? 'Terpilih' : 'Pilih Paket'}
@@ -123,13 +122,13 @@ export default function PremiumPage() {
           ))}
         </div>
 
-        {/* Checkout Section */}
+        {}
         <div className="bg-bg-card border border-border rounded-2xl p-6 max-w-md mx-auto text-center">
           <h2 className="text-white font-bold text-lg mb-2">Checkout</h2>
           <p className="text-text-muted text-xs mb-6 px-4">
             Total tagihan Anda adalah <span className="text-white font-bold">${selectedPkg.usd} USD</span> untuk {selectedPkg.title}. Pembayaran akan diproses dengan aman melalui PayPal.
           </p>
-          
+
           <div className="min-h-[150px] flex items-center justify-center">
             {!isScriptLoaded ? (
               <div className="flex flex-col items-center gap-2">

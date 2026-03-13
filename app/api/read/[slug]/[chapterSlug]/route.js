@@ -3,12 +3,12 @@ import connectDB from '@/lib/db';
 import Manga from '@/lib/models/Manga';
 import Chapter from '@/lib/models/Chapter';
 
-export const revalidate = 300; // 5 minutes cache
+export const revalidate = 300;
 
 export async function GET(request, { params }) {
     try {
         await connectDB();
-        
+
         const { slug, chapterSlug } = params;
 
         const [manga, chapter] = await Promise.all([
@@ -16,7 +16,7 @@ export async function GET(request, { params }) {
                 .select('title slug coverImage')
                 .lean(),
             Chapter.findOne({ mangaSlug: slug, chapterSlug })
-                .select('title images prevSlug nextSlug createdAt') 
+                .select('title images prevSlug nextSlug createdAt')
                 .lean()
         ]);
 

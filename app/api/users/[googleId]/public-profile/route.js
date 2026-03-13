@@ -2,7 +2,6 @@ import connectDB from '@/lib/db';
 import User from '@/lib/models/User';
 import { successResponse, errorResponse } from '@/lib/api-helpers';
 
-// GET: Get public profile data
 export async function GET(request, { params }) {
   try {
     await connectDB();

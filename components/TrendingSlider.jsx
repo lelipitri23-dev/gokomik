@@ -19,7 +19,6 @@ export default function TrendingSlider({ trending = [] }) {
   const items = trending.slice(0, 5);
   const item = items[current];
 
-  // Field sudah dinormalisasi
   const coverImage = item?.coverImage || '';
   const type = item?.type || '';
   const status = item?.status || '';
@@ -27,7 +26,7 @@ export default function TrendingSlider({ trending = [] }) {
 
   return (
     <div className="relative w-full overflow-hidden" style={{ height: '240px' }}>
-      {/* Background blur */}
+      {}
       <div className="absolute inset-0">
         {coverImage && (
           <Image
@@ -43,10 +42,10 @@ export default function TrendingSlider({ trending = [] }) {
         <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-bg-primary/20" />
       </div>
 
-      {/* Content */}
+      {}
       <div className="relative z-10 h-full flex items-end p-4">
         <div className="flex gap-4 items-end w-full">
-          {/* Cover */}
+          {}
           <Link href={`/manga/${item?.slug}`} className="flex-none">
             <div className="w-20 h-28 rounded-xl overflow-hidden border-2 border-accent-red shadow-lg shadow-blue-500/30">
               {coverImage ? (
@@ -64,7 +63,7 @@ export default function TrendingSlider({ trending = [] }) {
             </div>
           </Link>
 
-          {/* Info */}
+          {}
           <div className="flex-1 min-w-0 mb-1">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xs font-bold text-accent-red uppercase tracking-widest font-display flex items-center gap-1">
@@ -106,7 +105,7 @@ export default function TrendingSlider({ trending = [] }) {
         </div>
       </div>
 
-      {/* Dots */}
+      {}
       <div className="absolute bottom-2 right-4 flex gap-1.5">
         {items.map((_, i) => (
           <button

@@ -6,7 +6,6 @@ import { useAuth } from '@/context/AuthContext';
 import { TagsIcon } from 'lucide-react';
 import LiveSearch from '@/components/LiveSearch';
 
-// ─── Icons ────────────────────────────────────────────────
 function HomeIcon({ active }) {
   return (
     <svg viewBox="0 0 24 24" fill={active ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" className="w-6 h-6">
@@ -76,7 +75,6 @@ function BellIcon() {
   );
 }
 
-// ─── User Menu Dropdown ───────────────────────────────────
 function UserMenu({ user, logout }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -133,16 +131,12 @@ function UserMenu({ user, logout }) {
   );
 }
 
-// ─── Main Navbar ──────────────────────────────────────────
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuth();
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // ==========================================
-  // [FIX] STATE & LOGIKA NOTIFIKASI
-  // ==========================================
   const [notifications, setNotifications] = useState([]);
   const [showNotif, setShowNotif] = useState(false);
 
@@ -166,11 +160,9 @@ export default function Navbar() {
       setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
     } catch (err) { console.error(err); }
   };
-  // ==========================================
 
   if (pathname.startsWith('/read/')) return null;
   if (pathname.startsWith('/login')) return null;
-
 
   const NAV_ITEMS = [
     { href: '/', icon: HomeIcon, label: 'Home' },

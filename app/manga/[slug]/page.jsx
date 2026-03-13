@@ -7,7 +7,6 @@ import { notFound } from 'next/navigation';
 import BookmarkButton from '@/components/BookmarkButton';
 import AdBanner from '@/components/AdBanner';
 import ChapterList from '@/components/ChapterList';
-import CommentList from '@/components/CommentList';
 
 export const revalidate = 300;
 
@@ -58,7 +57,6 @@ export default async function MangaDetailPage({ params }) {
 
   const { info: manga, chapters = [], recommendations = [] } = res.data;
 
-  // Ambil field dari normalizeManga (sudah diproses di lib/api.js)
   const coverImage = manga.coverImage || manga.thumb || '';
   const type = manga.type || '';
   const status = manga.status || '';
@@ -96,7 +94,7 @@ export default async function MangaDetailPage({ params }) {
 
       <main className="pt-14 pb-safe max-w-2xl mx-auto">
 
-        {/* ── HERO ─── */}
+        {}
         <div className="relative overflow-hidden" style={{ minHeight: '220px' }}>
           {coverImage && (
             <div className="absolute inset-0 z-0">
@@ -114,7 +112,7 @@ export default async function MangaDetailPage({ params }) {
           )}
 
           <div className="relative z-10 px-4 pt-5 pb-5 flex gap-4">
-            {/* Cover */}
+            {}
             <div className="flex-none w-24 rounded-xl overflow-hidden border-2 border-accent-red shadow-xl shadow-blue-500/20 self-start">
               {coverImage ? (
                 <Image
@@ -132,13 +130,13 @@ export default async function MangaDetailPage({ params }) {
               )}
             </div>
 
-            {/* Info */}
+            {}
             <div className="flex-1 min-w-0 flex flex-col justify-center">
               <h1 className="font-display text-xl text-text-primary leading-tight tracking-wide mb-2">
                 {manga.title}
               </h1>
 
-              {/* Badges */}
+              {}
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {type && (
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border ${type?.toLowerCase() === 'manhwa' ? 'bg-purple-900/50 border-purple-700 text-purple-300'
@@ -159,7 +157,7 @@ export default async function MangaDetailPage({ params }) {
                 )}
               </div>
 
-              {/* Stats */}
+              {}
               <div className="flex items-center gap-4 flex-wrap mb-2">
                 {rating > 0 && (
                   <div className="flex items-center gap-1">
@@ -191,9 +189,9 @@ export default async function MangaDetailPage({ params }) {
             </div>
           </div>
         </div>
-        {/* ── END HERO ── */}
+        {}
 
-        {/* Tombol Baca */}
+        {}
         {chapters.length > 0 && (
           <div className="px-4 mt-3 flex gap-3">
             {firstChapter && (
@@ -221,12 +219,12 @@ export default async function MangaDetailPage({ params }) {
           </div>
         )}
 
-        {/* Bookmark */}
+        {}
         <div className="px-4 mt-3">
           <BookmarkButton manga={manga} />
         </div>
 
-        {/* Genres */}
+        {}
         {genres?.length > 0 && (
           <div className="px-4 mt-4">
             <div className="flex flex-wrap gap-2">
@@ -243,7 +241,7 @@ export default async function MangaDetailPage({ params }) {
           </div>
         )}
 
-        {/* Synopsis */}
+        {}
         {synopsis && (
           <div className="px-4 mt-4">
             <h2 className="font-display text-base tracking-widest text-text-secondary mb-2">SINOPSIS</h2>
@@ -253,7 +251,7 @@ export default async function MangaDetailPage({ params }) {
 
         <AdBanner slot="BEFORE_CHAPTERS" className="px-4 mt-4" />
 
-        {/* Chapter List */}
+        {}
         {chapters.length > 0 && (
           <div className="px-4 mt-6">
             <div className="flex items-center justify-between mb-3">
@@ -264,37 +262,7 @@ export default async function MangaDetailPage({ params }) {
           </div>
         )}
 
-        {/* ── KOMENTAR MANGA ── */}
-        <div className="px-4 mt-8">
-          <CommentList slug={manga.slug} initialComments={[
-            {
-              id: 1,
-              user: {
-                displayName: 'MangaReader99',
-                isPremium: true,
-                totalReadingMinutes: 1250,
-                id: 'usr123',
-                photoURL: 'https://i.pravatar.cc/150?img=33'
-              },
-              text: 'Gila ceritanya makin seru aja! 🔥 Pantengin terus updatenya min.',
-              createdAt: new Date(Date.now() - 3600000).toISOString()
-            },
-            {
-              id: 2,
-              user: {
-                displayName: 'WeebMaster',
-                isPremium: false,
-                totalReadingMinutes: 450,
-                id: 'usr456',
-                photoURL: null
-              },
-              text: 'Top tier manga beneran deh, artnya juga dewa banget.',
-              createdAt: new Date(Date.now() - 7200000).toISOString()
-            }
-          ]} />
-        </div>
-
-        {/* ── REKOMENDASI ── */}
+        {}
         {recommendations.length > 0 && (
           <div className="px-4 mt-8 mb-6 border-t border-border pt-6">
             <h2 className="font-display text-base tracking-widest text-text-primary mb-4">REKOMENDASI LAINNYA</h2>

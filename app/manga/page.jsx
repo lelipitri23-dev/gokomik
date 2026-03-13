@@ -29,8 +29,7 @@ export async function generateMetadata({ searchParams }) {
 
 export default async function BrowsePage({ searchParams }) {
   const page = Number(searchParams?.page) || 1;
-  
-  // Params untuk getMangaList — hanya kirim yang ada nilainya
+
   const params = {
     page,
     limit: 24,
@@ -41,7 +40,6 @@ export default async function BrowsePage({ searchParams }) {
     order:  searchParams?.order  || '',
   };
 
-  // Build href helper untuk pagination
   const buildHref = (newPage) => {
     const p = new URLSearchParams();
     if (params.q)      p.set('q',      params.q);
@@ -54,7 +52,6 @@ export default async function BrowsePage({ searchParams }) {
     return `/manga${qs ? '?' + qs : ''}`;
   };
 
-  // Fetch data paralel
   const [mangaRes, genreRes] = await Promise.all([
     getMangaList(params),
     getGenres(),
@@ -84,7 +81,7 @@ export default async function BrowsePage({ searchParams }) {
           }}
         />
 
-        {/* Pagination */}
+        {}
         {pagination.totalPages > 1 && (
           <div className="flex items-center justify-center gap-4 py-10 mt-4">
             <Link

@@ -9,9 +9,7 @@ import {
 } from 'lucide-react';
 import AdBanner from '@/components/AdBanner';
 import { useAuth } from '@/context/AuthContext';
-import CommentList from '@/components/CommentList';
 
-// Gambar dengan proteksi klik kanan & tap lama
 function ProtectedImage({ src, alt, className }) {
   const longPressTimer = useRef(null);
 
@@ -42,7 +40,6 @@ function ProtectedImage({ src, alt, className }) {
   );
 }
 
-// ── Chapter List Popup ── (optimized: search + paginated, no 1000+ DOM nodes)
 function ChapterListPopup({ chapterList, chapterSlug, slug, query, setQuery, page, setPage, pageSize, onClose, XIcon, LinkComp }) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -57,13 +54,13 @@ function ChapterListPopup({ chapterList, chapterSlug, slug, query, setQuery, pag
 
   return (
     <div className="fixed bottom-28 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-[#151515] border border-white/10 rounded-2xl shadow-2xl z-40 flex flex-col max-h-[55vh]">
-      {/* Header */}
+      {}
       <div className="p-3 border-b border-white/5 flex justify-between items-center bg-white/5 rounded-t-2xl shrink-0">
         <h3 className="font-bold text-sm text-gray-200">Chapters ({chapterList.length})</h3>
         <button onClick={onClose}><XIcon size={18} className="text-gray-400" /></button>
       </div>
 
-      {/* Search */}
+      {}
       <div className="px-3 pt-2 pb-1 shrink-0">
         <input
           type="search"
@@ -74,7 +71,7 @@ function ChapterListPopup({ chapterList, chapterSlug, slug, query, setQuery, pag
         />
       </div>
 
-      {/* Grid */}
+      {}
       <div className="p-2 overflow-y-auto grid grid-cols-5 gap-2">
         {displayed.length > 0 ? (
           displayed.map((ch) => {
@@ -99,7 +96,7 @@ function ChapterListPopup({ chapterList, chapterSlug, slug, query, setQuery, pag
           </div>
         )}
 
-        {/* Load more */}
+        {}
         {hasMore && (
           <button
             onClick={() => setPage((p) => p + 1)}
@@ -131,7 +128,6 @@ export default function ReaderClient() {
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const [scrollSpeed, setScrollSpeed] = useState(2);
 
-  // Chapter list popup state
   const [chapterQuery, setChapterQuery] = useState('');
   const [chapterPage, setChapterPage] = useState(1);
   const CHAPTER_PAGE_SIZE = 100;
@@ -139,14 +135,12 @@ export default function ReaderClient() {
   const lastScrollY = useRef(0);
   const scrollInterval = useRef(null);
 
-  // Blokir klik kanan
   useEffect(() => {
     const block = (e) => e.preventDefault();
     document.addEventListener('contextmenu', block);
     return () => document.removeEventListener('contextmenu', block);
   }, []);
 
-  // Fetch data chapter
   useEffect(() => {
     async function initReader() {
       setLoading(true);
@@ -161,7 +155,6 @@ export default function ReaderClient() {
         if (!jsonRead.success) throw new Error(jsonRead.message || 'Gagal memuat chapter');
         setData(jsonRead.data);
 
-        // ── Simpan history ke backend (jika user login) ──
         const readData = jsonRead.data;
         if (user?.uid && readData?.manga && readData?.chapter) {
           const manga = readData.manga;
@@ -176,12 +169,11 @@ export default function ReaderClient() {
               thumb: manga.thumb || manga.coverImage || '',
               lastChapterTitle: chapter.title,
               lastChapterSlug: chapterSlug,
-              upsert: true,   // supaya backend update entry yg sudah ada (bukan insert baru)
+              upsert: true,
             }),
           }).catch(err => console.warn('[History] gagal simpan:', err.message));
         }
 
-        // Ambil daftar chapter — pakai sessionStorage cache per slug
         try {
           const cacheKey = `chapterList_${slug}`;
           const cached = sessionStorage.getItem(cacheKey);
@@ -211,7 +203,6 @@ export default function ReaderClient() {
     initReader();
   }, [slug, chapterSlug, user?.uid]);
 
-  // Auto scroll
   useEffect(() => {
     if (isAutoScrolling) {
       const step = () => {
@@ -227,7 +218,6 @@ export default function ReaderClient() {
     return () => { if (scrollInterval.current) clearInterval(scrollInterval.current); };
   }, [isAutoScrolling, scrollSpeed]);
 
-  // Scroll handler
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -289,7 +279,7 @@ export default function ReaderClient() {
   return (
     <div className="bg-[#080808] min-h-screen relative text-gray-200 font-sans select-none">
 
-      {/* CONTENT */}
+      {}
       <div
         className="min-h-screen w-full pb-32 pt-16 cursor-pointer"
         onClick={() => {
@@ -323,7 +313,7 @@ export default function ReaderClient() {
         </div>
       </div>
 
-      {/* TOP HEADER */}
+      {}
       <div className={`fixed top-0 left-0 right-0 h-14 bg-[#111]/90 backdrop-blur-md z-40 border-b border-white/5 flex items-center px-4 justify-between transition-transform duration-300 ${showUI ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="flex items-center gap-3 overflow-hidden">
           <Link href={`/manga/${manga?.slug || slug}`} className="p-2 -ml-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition">
@@ -339,7 +329,7 @@ export default function ReaderClient() {
         </div>
       </div>
 
-      {/* BOTTOM DOCK */}
+      {}
       <div className={`fixed bottom-8 left-0 right-0 z-50 flex justify-center px-4 transition-transform duration-300 ${showUI ? 'translate-y-0' : 'translate-y-[150%]'}`}>
         <div className="bg-[#0f0f0f] border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center gap-6 sm:gap-8 min-w-[320px] justify-between backdrop-blur-md">
           {navigation?.prev ? (
@@ -385,7 +375,7 @@ export default function ReaderClient() {
         </div>
       </div>
 
-      {/* SETTINGS MENU */}
+      {}
       {activeMenu === 'settings' && (
         <div className="fixed bottom-28 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-[#151515] border border-white/10 rounded-2xl shadow-2xl z-40 p-5">
           <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/5">
@@ -429,7 +419,7 @@ export default function ReaderClient() {
         </div>
       )}
 
-      {/* CHAPTER LIST MENU */}
+      {}
       {activeMenu === 'chapters' && (
         <ChapterListPopup
           chapterList={chapterList}

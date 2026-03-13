@@ -19,10 +19,8 @@ export default function LiveSearch({ onClose }) {
   const timerRef = useRef(null);
   const abortRef = useRef(null);
 
-  // Autofocus
   useEffect(() => { inputRef.current?.focus(); }, []);
 
-  // Debounced live search
   useEffect(() => {
     const q = query.trim();
     if (!q) {
@@ -61,7 +59,6 @@ export default function LiveSearch({ onClose }) {
     return () => clearTimeout(timerRef.current);
   }, [query]);
 
-  // Keyboard navigation
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -82,7 +79,6 @@ export default function LiveSearch({ onClose }) {
     }
   }, [results, activeIdx, query, router, onClose]);
 
-  // Scroll active item into view
   useEffect(() => {
     if (activeIdx >= 0 && listRef.current) {
       const el = listRef.current.children[activeIdx];
@@ -107,7 +103,7 @@ export default function LiveSearch({ onClose }) {
         onClick={(e) => e.stopPropagation()}
         style={{ animation: 'slideDown 0.18s ease' }}
       >
-        {/* Input box */}
+        {}
         <div className="flex items-center gap-3 bg-bg-card border border-border rounded-2xl px-4 py-3 shadow-2xl shadow-black/60">
           {loading ? (
             <div className="w-5 h-5 border-2 border-accent-red border-t-transparent rounded-full animate-spin flex-shrink-0" />
@@ -139,7 +135,7 @@ export default function LiveSearch({ onClose }) {
           )}
         </div>
 
-        {/* Results dropdown */}
+        {}
         {(results.length > 0 || showEmpty) && (
           <div className="mt-2 bg-bg-card border border-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
             {results.length > 0 ? (
@@ -154,7 +150,7 @@ export default function LiveSearch({ onClose }) {
                         idx === activeIdx ? 'bg-accent-red/10' : 'hover:bg-bg-elevated'
                       }`}
                     >
-                      {/* Cover */}
+                      {}
                       <div className="w-9 h-12 rounded-lg overflow-hidden bg-bg-elevated flex-shrink-0 border border-border">
                         {item.coverImage ? (
                           <img
@@ -168,7 +164,7 @@ export default function LiveSearch({ onClose }) {
                         )}
                       </div>
 
-                      {/* Info */}
+                      {}
                       <div className="flex-1 min-w-0">
                         <p className={`text-sm font-semibold truncate ${idx === activeIdx ? 'text-accent-red' : 'text-text-primary'}`}>
                           {item.title}
@@ -194,7 +190,7 @@ export default function LiveSearch({ onClose }) {
                         </div>
                       </div>
 
-                      {/* Arrow */}
+                      {}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`w-4 h-4 flex-shrink-0 ${idx === activeIdx ? 'text-accent-red' : 'text-text-muted'}`}>
                         <polyline points="9 18 15 12 9 6" />
                       </svg>
@@ -202,7 +198,7 @@ export default function LiveSearch({ onClose }) {
                   ))}
                 </div>
 
-                {/* Footer: lihat semua */}
+                {}
                 <button
                   onClick={() => { router.push(`/manga?q=${encodeURIComponent(query.trim())}`); onClose(); }}
                   className="w-full flex items-center justify-center gap-2 py-3 text-xs text-text-secondary font-semibold border-t border-border hover:bg-bg-elevated hover:text-accent-red transition-colors"
@@ -225,7 +221,7 @@ export default function LiveSearch({ onClose }) {
           </div>
         )}
 
-        {/* Hint */}
+        {}
         {!query && (
           <p className="text-text-muted text-xs text-center mt-3">
             Ketik untuk mencari · <kbd className="bg-bg-elevated border border-border rounded px-1.5 py-0.5 text-[10px]">↑↓</kbd> navigasi · <kbd className="bg-bg-elevated border border-border rounded px-1.5 py-0.5 text-[10px]">Esc</kbd> tutup

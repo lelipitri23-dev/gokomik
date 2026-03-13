@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { calcUserLevel, getUserShortId } from '@/lib/profile';
 import { useAuth } from '@/context/AuthContext';
 
-// Komponen helper untuk waktu yang lalu (cth: "2 jam lalu")
 function timeAgo(dateParam) {
   if (!dateParam) return '';
   const date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
@@ -25,8 +24,7 @@ function CommentItem({ comment }) {
   const { user, text, createdAt } = comment;
   const isPremium = user?.isPremium;
   const isAdmin = user?.isAdmin;
-  
-  // Badge Component logic
+
   const RoleBadge = () => {
     if (isAdmin) {
       return <span className="px-2 py-0.5 rounded-full border border-red-500 text-red-500 font-bold bg-red-500/10 text-[10px]">Admin</span>;
@@ -39,7 +37,7 @@ function CommentItem({ comment }) {
 
   return (
     <div className="flex gap-3 mb-5 mt-2">
-      {/* Avatar Bulat */}
+      {}
       <Link href={`/user/${user?.id || user?.googleId}`} className="flex-shrink-0">
         <div className="w-10 h-10 rounded-full overflow-hidden bg-bg-elevated border-2 border-border">
           {user?.photoURL ? (
@@ -52,7 +50,7 @@ function CommentItem({ comment }) {
         </div>
       </Link>
 
-      {/* Konten Komentar */}
+      {}
       <div className="flex-1 w-full min-w-0">
         <div className="flex items-center gap-1.5 text-xs text-text-muted mb-1 flex-wrap">
           <Link href={`/user/${user?.id || user?.googleId}`} className="font-bold text-text-primary hover:text-accent-red transition-colors">
@@ -62,17 +60,17 @@ function CommentItem({ comment }) {
           <span>{timeAgo(createdAt)}</span>
         </div>
 
-        {/* Baris Badges Kecil */}
+        {}
         <div className="flex items-center gap-1.5 mb-2 flex-wrap">
           <span className="font-bold text-[10px] text-text-secondary">Lvl. {calcUserLevel(user?.totalReadingMinutes || 0)}</span>
           <RoleBadge />
           <span className="text-gray-500 text-[10px] font-semibold">{getUserShortId(user?.id)}</span>
         </div>
 
-        {/* Isi Teks Teks Komentar */}
+        {}
         <p className="text-sm text-text-secondary leading-relaxed break-words whitespace-pre-wrap">{text}</p>
 
-        {/* Tombol Action */}
+        {}
         <div className="mt-2 flex items-center gap-4">
           <button className="text-blue-500 hover:text-blue-400 font-bold text-xs flex items-center gap-1 transition-colors">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
@@ -90,10 +88,9 @@ export default function CommentList({ slug, initialComments = [] }) {
   const [newComment, setNewComment] = useState('');
   const [showFab, setShowFab] = useState(false);
 
-  // Monitor scroll untuk memunculkan FAB
   useEffect(() => {
     const handleScroll = () => {
-      // Tampilkan FAB jika sudah scroll agak ke bawah dari posisi komentar
+
       if (window.scrollY > 500) {
         setShowFab(true);
       } else {
@@ -109,7 +106,7 @@ export default function CommentList({ slug, initialComments = [] }) {
   };
 
   const loadNewComments = () => {
-    // Simulasi muat komentar baru / refresh
+
     console.log('Memuat komentar baru...');
   };
 
@@ -118,7 +115,7 @@ export default function CommentList({ slug, initialComments = [] }) {
     const comment = {
       id: Date.now(),
       user: {
-        id: user.uid, // Google ID
+        id: user.uid,
         displayName: user.displayName,
         photoURL: user.photoURL,
         isPremium: user.isPremium,
@@ -188,7 +185,7 @@ export default function CommentList({ slug, initialComments = [] }) {
         )}
       </div>
 
-      {/* FAB: Floating Action Button */}
+      {}
       {showFab && (
         <button
           onClick={scrollToTop}

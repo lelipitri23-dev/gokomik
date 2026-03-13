@@ -4,7 +4,6 @@ import { getPublicProfile } from '@/lib/profile';
 export async function generateMetadata({ params }) {
   const { userId } = await params;
 
-  // Fetch nama asli dari Firestore
   const profile = await getPublicProfile(userId);
   const displayName = profile?.displayName || 'Pengguna';
 

@@ -7,7 +7,6 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import { useAuth } from '@/context/AuthContext';
 
-// ─── Badge membership ─────────────────────────────────────
 function MemberBadge({ isAdmin, isPremium }) {
   if (isAdmin) return (
     <span className="flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-500/20 border border-red-500/40 text-red-400">
@@ -35,14 +34,12 @@ function MemberBadge({ isAdmin, isPremium }) {
   );
 }
 
-// ─── User Card ────────────────────────────────────────────
 function UserCard({ user }) {
   const name     = user.displayName || 'Pengguna';
   const initials = name.slice(0, 2).toUpperCase();
   const handle   = `@${name.toLowerCase().replace(/\s+/g, '')}`;
   const total    = user.stats?.total || 0;
 
-  // Warna avatar gradient berdasarkan initial
   const gradients = [
     'from-blue-600 to-blue-900',
     'from-purple-600 to-purple-900',
@@ -57,7 +54,7 @@ function UserCard({ user }) {
       href={`/user/${user.googleId}`}
       className="group flex items-center gap-3 bg-bg-card border border-border rounded-2xl p-3 hover:border-accent-red/40 hover:bg-bg-elevated transition-all duration-200"
     >
-      {/* Avatar */}
+      {}
       <div className="flex-shrink-0 relative">
         <div className="w-12 h-12 rounded-xl overflow-hidden border border-border group-hover:border-accent-red/50 transition-colors">
           {user.photoURL ? (
@@ -68,7 +65,7 @@ function UserCard({ user }) {
             </div>
           )}
         </div>
-        {/* Online indicator style dot for admin/premium */}
+        {}
         {(user.isAdmin || user.isPremium) && (
           <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-bg-card flex items-center justify-center ${user.isAdmin ? 'bg-red-500' : 'bg-yellow-500'}`}>
             <svg viewBox="0 0 24 24" fill="white" className="w-2 h-2">
@@ -81,7 +78,7 @@ function UserCard({ user }) {
         )}
       </div>
 
-      {/* Info */}
+      {}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
           <span className="text-text-primary font-bold text-sm line-clamp-1">{name}</span>
@@ -93,7 +90,7 @@ function UserCard({ user }) {
         )}
       </div>
 
-      {/* Stats */}
+      {}
       <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
         <div className="flex items-center gap-1 text-accent-red">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3">
@@ -106,7 +103,7 @@ function UserCard({ user }) {
           <span>·</span>
           <span>{user.stats?.reading || 0} baca</span>
         </div>
-        {/* Arrow */}
+        {}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
           className="w-4 h-4 text-text-muted group-hover:text-accent-red group-hover:translate-x-0.5 transition-all duration-200">
           <polyline points="9 18 15 12 9 6"/>
@@ -116,7 +113,6 @@ function UserCard({ user }) {
   );
 }
 
-// ─── Skeleton ─────────────────────────────────────────────
 function UserSkeleton() {
   return (
     <div className="space-y-3 px-4">
@@ -134,7 +130,6 @@ function UserSkeleton() {
   );
 }
 
-// ─── Main Component ───────────────────────────────────────
 export default function UserList() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
@@ -147,7 +142,6 @@ export default function UserList() {
   const [page, setPage]             = useState(1);
   const debounceRef                 = useRef(null);
 
-  // ── Guard: hanya admin yang boleh akses ─────────────────
   useEffect(() => {
     if (authLoading) return;
     if (!user || !user.isAdmin) {
@@ -155,7 +149,6 @@ export default function UserList() {
     }
   }, [user, authLoading]);
 
-  // Tampilkan loading spinner selama cek auth
   if (authLoading || !user?.isAdmin) {
     return (
       <div className="min-h-screen bg-bg-primary flex items-center justify-center">
@@ -164,7 +157,6 @@ export default function UserList() {
     );
   }
 
-  // Load user saat search/page berubah
   const load = useCallback(async (q, p, append = false) => {
     if (append) setLoadingMore(true);
     else setLoading(true);
@@ -173,7 +165,6 @@ export default function UserList() {
       const res = await getUsers({ q, page: p, limit: 20 });
       const raw = Array.isArray(res.data) ? res.data : [];
 
-      // ── Safety net: dedup by googleId kalau backend masih ada duplikat ──
       const seen = new Set();
       const data = raw.filter(u => {
         if (!u.googleId || seen.has(u.googleId)) return false;
@@ -191,12 +182,10 @@ export default function UserList() {
     }
   }, []);
 
-  // Initial load
   useEffect(() => {
     load('', 1, false);
   }, []);
 
-  // Debounce search input (400ms)
   const handleSearchChange = (val) => {
     setSearchInput(val);
     clearTimeout(debounceRef.current);
@@ -207,7 +196,6 @@ export default function UserList() {
     }, 400);
   };
 
-  // Load more (pagination)
   const handleLoadMore = () => {
     const next = page + 1;
     setPage(next);
@@ -222,7 +210,7 @@ export default function UserList() {
 
       <main className="pt-14 pb-safe max-w-2xl mx-auto">
 
-        {/* ── Header ──────────────────────────────── */}
+        {}
         <div className="px-4 pt-5 pb-4">
           <div className="flex items-end justify-between mb-4">
             <div>
@@ -231,7 +219,7 @@ export default function UserList() {
                 {pagination ? `${pagination.totalItems} pengguna terdaftar` : 'Memuat...'}
               </p>
             </div>
-            {/* Ikon grup */}
+            {}
             <div className="w-10 h-10 bg-bg-card border border-border rounded-xl flex items-center justify-center mb-0.5">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-accent-red">
                 <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
@@ -242,7 +230,7 @@ export default function UserList() {
             </div>
           </div>
 
-          {/* Search */}
+          {}
           <div className="flex items-center gap-2 bg-bg-card border border-border rounded-xl px-3 py-2.5 focus-within:border-accent-red/50 transition-colors">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-text-muted flex-shrink-0">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -267,10 +255,10 @@ export default function UserList() {
           </div>
         </div>
 
-        {/* ── Loading ──────────────────────────────── */}
+        {}
         {loading && <UserSkeleton />}
 
-        {/* ── Empty ────────────────────────────────── */}
+        {}
         {!loading && users.length === 0 && (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center px-4">
             <div className="w-16 h-16 bg-bg-elevated rounded-full flex items-center justify-center">
@@ -300,14 +288,14 @@ export default function UserList() {
           </div>
         )}
 
-        {/* ── User List ─────────────────────────────── */}
+        {}
         {!loading && users.length > 0 && (
           <div className="px-4 space-y-3">
             {users.map(user => (
               <UserCard key={user.googleId} user={user} />
             ))}
 
-            {/* Load More */}
+            {}
             {hasMore && (
               <button
                 onClick={handleLoadMore}
@@ -333,7 +321,7 @@ export default function UserList() {
               </button>
             )}
 
-            {/* Info total loaded */}
+            {}
             {!hasMore && users.length > 0 && (
               <p className="text-center text-text-muted text-xs py-2">
                 Menampilkan {users.length} dari {pagination?.totalItems || users.length} pengguna
